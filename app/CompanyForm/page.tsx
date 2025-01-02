@@ -1,8 +1,8 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
 const CompanyForm = ({ onSubmit, initialData }) => {
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, control, reset, formState: { errors } } = useForm({
     defaultValues: initialData || {
       name: '',
       location: '',
@@ -26,18 +26,18 @@ const CompanyForm = ({ onSubmit, initialData }) => {
     >
       <h2 className="text-2xl font-semibold text-white mb-6">Add Company</h2>
 
+      {/* Company Name and Location */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Name */}
         <div className="flex flex-col space-y-2">
           <label className="text-white">Company Name:</label>
           <input
-            {...register('name', { required: true })}
+            {...register('name', { required: 'Company name is required' })}
             className="bg-gray-800 text-white border-gray-600 focus:ring-white focus:border-white rounded-lg shadow-sm p-3"
             placeholder="Enter company name"
           />
+          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
         </div>
 
-        {/* Location */}
         <div className="flex flex-col space-y-2">
           <label className="text-white">Location:</label>
           <input
@@ -58,24 +58,46 @@ const CompanyForm = ({ onSubmit, initialData }) => {
         />
       </div>
 
-      {/* Emails */}
+      {/* Dynamic Emails */}
       <div className="flex flex-col space-y-2">
         <label className="text-white">Emails:</label>
-        <input
-          {...register('emails.0')}
-          className="bg-gray-800 text-white border-gray-600 focus:ring-white focus:border-white rounded-lg shadow-sm p-3"
-          placeholder="Enter company email"
-        />
+        {['emails.0'].map((fieldName, index) => (
+          <div key={index} className="flex items-center space-x-3">
+            <input
+              {...register(fieldName, {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                  message: 'Invalid email address',
+                },
+              })}
+              className="bg-gray-800 text-white border-gray-600 focus:ring-white focus:border-white rounded-lg shadow-sm p-3"
+              placeholder="Enter company email"
+            />
+            {errors.emails?.[index] && <p className="text-red-500 text-sm">{errors.emails[index]?.message}</p>}
+          </div>
+        ))}
       </div>
 
-      {/* Phone Numbers */}
+      {/* Dynamic Phone Numbers */}
       <div className="flex flex-col space-y-2">
         <label className="text-white">Phone Numbers:</label>
-        <input
-          {...register('phoneNumbers.0')}
-          className="bg-gray-800 text-white border-gray-600 focus:ring-white focus:border-white rounded-lg shadow-sm p-3"
-          placeholder="Enter phone number"
-        />
+        {['phoneNumbers.0'].map((fieldName, index) => (
+          <div key={index} className="flex items-center space-x-3">
+            <input
+              {...register(fieldName, {
+                required: 'Phone number is required',
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message: 'Invalid phone number',
+                },
+              })}
+              className="bg-gray-800 text-white border-gray-600 focus:ring-white focus:border-white rounded-lg shadow-sm p-3"
+              placeholder="Enter phone number"
+            />
+            {errors.phoneNumbers?.[index] && <p className="text-red-500 text-sm">{errors.phoneNumbers[index]?.message}</p>}
+          </div>
+        ))}
       </div>
 
       {/* Comments */}

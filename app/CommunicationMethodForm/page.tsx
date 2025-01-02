@@ -8,7 +8,7 @@ interface CommunicationMethodFormProps {
 }
 
 const CommunicationMethodForm: React.FC<CommunicationMethodFormProps> = ({ onSubmit, methods, onDelete }) => {
-  const { register, handleSubmit, reset } = useForm<CommunicationMethod>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<CommunicationMethod>({
     defaultValues: {
       name: '',
       description: '',
@@ -19,7 +19,7 @@ const CommunicationMethodForm: React.FC<CommunicationMethodFormProps> = ({ onSub
 
   const handleFormSubmit = (data: CommunicationMethod) => {
     onSubmit(data);
-    reset();
+    reset(); // Reset form after submission
   };
 
   return (
@@ -37,11 +37,15 @@ const CommunicationMethodForm: React.FC<CommunicationMethodFormProps> = ({ onSub
           <div>
             <label htmlFor="name" className="text-gray-600 text-lg">Name</label>
             <input
-              {...register('name', { required: true })}
+              {...register('name', { 
+                required: 'This field is required', 
+                minLength: { value: 3, message: 'Name must be at least 3 characters' }
+              })}
               id="name"
               className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
               placeholder="Enter method name"
             />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
           </div>
 
           {/* Description Field */}
@@ -61,12 +65,16 @@ const CommunicationMethodForm: React.FC<CommunicationMethodFormProps> = ({ onSub
           <div>
             <label htmlFor="sequence" className="text-gray-600 text-lg">Sequence</label>
             <input
-              {...register('sequence')}
+              {...register('sequence', { 
+                required: 'This field is required', 
+                min: { value: 1, message: 'Sequence must be at least 1' } 
+              })}
               id="sequence"
               type="number"
               className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
               placeholder="Enter sequence number"
             />
+            {errors.sequence && <p className="text-red-500 text-sm">{errors.sequence.message}</p>}
           </div>
 
           {/* Mandatory Checkbox */}
