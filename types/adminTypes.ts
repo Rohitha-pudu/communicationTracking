@@ -11,14 +11,14 @@ export interface Company {
   comments: string;
   periodicity: '1 week' | '2 weeks' | '1 month';
 }
-
 export interface CommunicationMethod {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   sequence: number;
   mandatoryFlag: boolean;
 }
+
 
   
   

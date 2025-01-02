@@ -7,7 +7,7 @@ interface CommunicationMethodFormProps {
   onDelete: (id: string) => void;
 }
 
-const CommunicationMethodForm: React.FC<CommunicationMethodFormProps> = ({ onSubmit, methods, onDelete }) => {
+const CommunicationMethodForm = ({ onSubmit, methods, onDelete }: CommunicationMethodFormProps) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<CommunicationMethod>({
     defaultValues: {
       name: '',
