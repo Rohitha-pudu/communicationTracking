@@ -102,31 +102,6 @@ const CommunicationMethodForm = ({ onSubmit, methods, onDelete }: CommunicationM
           </button>
         </div>
       </form>
-
-      {/* Existing Methods Section */}
-      <div className="max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Existing Communication Methods</h3>
-        <ul className="space-y-4">
-          {methods.map((method) => (
-            <li key={method.id} className="flex justify-between items-center space-x-6 bg-gray-50 rounded-lg p-4 shadow-sm">
-              <div className="flex flex-col space-y-1">
-                <p className="font-semibold text-lg text-gray-700">{method.name}</p>
-                <p className="text-sm text-gray-500">{method.description}</p>
-                <p className="text-sm text-gray-500">Sequence: {method.sequence}</p>
-                <p className="text-sm text-gray-500">Mandatory: {method.mandatoryFlag ? "Yes" : "No"}</p>
-              </div>
-              <div className="flex space-x-4">
-                <button
-                  onClick={() => onDelete(method.id)}
-                  className="text-red-600 hover:text-red-700 transition duration-150"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };

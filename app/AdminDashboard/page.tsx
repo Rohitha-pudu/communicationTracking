@@ -57,9 +57,9 @@ const AdminDashboard: React.FC = () => {
       <CompanyList companies={companies} onEdit={setEditingCompany} onDelete={handleDeleteCompany} />
 
       {/* Communication Method Form and List */}
-      <div className="mt-[4rem]"></div>
+      {/* <div className="mt-[4rem]"></div>
       <CommunicationMethodForm
-       onSubmit={handleAddOrUpdateMethod} methods={communicationMethods} onDelete={handleDeleteMethod} />
+       onSubmit={handleAddOrUpdateMethod} methods={communicationMethods} onDelete={handleDeleteMethod} /> */}
     </div>
   );
 };
