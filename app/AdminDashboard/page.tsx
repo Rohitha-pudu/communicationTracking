@@ -4,7 +4,7 @@ import CompanyForm from "../CompanyForm/page";
 import CompanyList from "../CompanyList/page";
  // New component
 import { Company, CommunicationMethod } from "@/types/adminTypes";
-import CommunicationMethodForm from "../CommunicationMethodForm/page";
+// import CommunicationMethodForm from "../CommunicationMethodForm/page";
 
 const AdminDashboard: React.FC = () => {
   const [companies, setCompanies] = useState<Company[]>([]);
